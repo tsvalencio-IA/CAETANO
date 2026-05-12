@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <title>CAETANO — Gestão</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#8B0000">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('caetano_theme')||'dark'}catch(e){document.documentElement.dataset.theme='dark'}</script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<button id="hamb" class="hamb" onclick="App.toggleMenu()">☰</button>
+<div class="layout">
+  <aside id="side" class="side">
+    <div class="side-brand"><div class="brand-mark small">C</div><div><strong>CAETANO</strong><span>Casa de Carnes</span></div></div>
+    <div id="roleBadge" class="role-badge"></div>
+    <nav id="nav"></nav>
+    <div class="side-footer">
+      <button onclick="App.toggleTheme()">🌗 Tema</button>
+      <button onclick="App.backup()">⬇ Backup</button>
+      <button onclick="document.getElementById('restoreFile').click()">⬆ Restaurar</button>
+      <input id="restoreFile" type="file" accept="application/json" hidden onchange="App.restore(event)">
+      <button onclick="location.href='index.html'">Sair</button>
+    </div>
+  </aside>
+  <main class="main">
+    <header class="top">
+      <div><small id="crumb">Painel</small><h1 id="title">Dashboard</h1></div>
+      <div class="top-actions"><span id="tenantName">CAETANO Casa de Carnes</span><button onclick="App.openQuickSale()">+ Venda</button></div>
+    </header>
+    <section id="view" class="view"></section>
+  </main>
+</div>
+<div id="modal" class="modal-backdrop" onclick="App.closeModal(event)"><div class="modal"><div class="modal-head"><h2 id="modalTitle"></h2><button onclick="App.closeModal(true)">×</button></div><div id="modalBody" class="modal-body"></div><div id="modalFoot" class="modal-foot"></div></div></div>
+<div id="toast"></div>
+<script src="js/caetano-core.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name":"caetano-casa-carnes-saas",
+  "version":"1.0.0",
+  "description":"SaaS client-side para açougue/casa de carnes CAETANO",
+  "main":"electron/main.js",
+  "scripts":{"pc:win":"electron-builder --win nsis portable --x64 --publish never","pack":"electron-builder --dir","static":"echo static"},
+  "build":{"appId":"br.com.caetano.casadecarnes","productName":"CAETANO Casa de Carnes","files":["**/*"],"directories":{"output":"dist"},"win":{"target":["nsis","portable"]}},
+  "devDependencies":{"electron":"^31.7.7","electron-builder":"^24.13.3"}
+}

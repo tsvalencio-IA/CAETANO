@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <title>CAETANO — Casa de Carnes</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#8B0000">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('caetano_theme')||'dark'}catch(e){document.documentElement.dataset.theme='dark'}</script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="login-shell">
+    <section class="login-card">
+      <div class="brand-mark">C</div>
+      <h1>CAETANO</h1>
+      <p>Casa de Carnes — Sistema de Gestão</p>
+      <div class="login-grid">
+        <button onclick="entrar('superadmin')">Superadmin</button>
+        <button onclick="entrar('jarvis')">Dono / Gerente</button>
+        <button onclick="entrar('equipe')">Equipe / Açougueiro</button>
+        <button onclick="entrar('cliente')">Cliente</button>
+        <button onclick="entrar('clienteOficial')">Cliente Oficial</button>
+      </div>
+      <label class="login-label">Usuário / e-mail</label>
+      <input id="loginEmail" type="email" inputmode="email" autocomplete="username email" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="usuario@caetano.local">
+      <label class="login-label">Senha</label>
+      <input id="loginSenha" type="password" autocomplete="current-password" placeholder="opcional nesta versão local">
+      <small>Versão client-side para GitHub Pages, PWA, APK e EXE. Dados ficam no navegador/dispositivo até exportar backup.</small>
+    </section>
+  </main>
+<script>
+function entrar(role){
+  try{localStorage.setItem('caetano_ultimo_login', document.getElementById('loginEmail').value||'');}catch(e){}
+  location.href='app.html?role='+encodeURIComponent(role);
+}
+try{document.getElementById('loginEmail').value=localStorage.getItem('caetano_ultimo_login')||'';}catch(e){}
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('service-worker.js').catch(()=>{}));}
+</script>
+</body>
+</html>
