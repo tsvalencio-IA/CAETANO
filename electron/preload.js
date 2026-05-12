@@ -1,1 +1,1 @@
-window.addEventListener('DOMContentLoaded',()=>{document.documentElement.classList.add('electron-app')});
+// Reserva para integrações locais futuras. O app é 100% client-side.

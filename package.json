@@ -1,9 +1,1 @@
-{
-  "name":"caetano-casa-carnes-saas",
-  "version":"1.0.0",
-  "description":"SaaS client-side para açougue/casa de carnes CAETANO",
-  "main":"electron/main.js",
-  "scripts":{"pc:win":"electron-builder --win nsis portable --x64 --publish never","pack":"electron-builder --dir","static":"echo static"},
-  "build":{"appId":"br.com.caetano.casadecarnes","productName":"CAETANO Casa de Carnes","files":["**/*"],"directories":{"output":"dist"},"win":{"target":["nsis","portable"]}},
-  "devDependencies":{"electron":"^31.7.7","electron-builder":"^24.13.3"}
-}
+{"name":"caetano-carnes-rotisseria-saas","version":"1.0.0","description":"SaaS profissional para Casa de Carnes e Rotisseria Caetano","main":"electron/main.js","scripts":{"pc:win":"electron-builder --win nsis portable --x64 --publish never","web:package":"mkdir -p dist && cp -R app/* dist/"},"dependencies":{},"devDependencies":{"electron":"^30.5.1","electron-builder":"^24.13.3"},"build":{"appId":"br.com.thiaguinho.caetano","productName":"CAETANO Carnes Rotisseria","files":["app/**/*","electron/**/*"],"directories":{"output":"release"},"win":{"target":["nsis","portable"]},"publish":null}}

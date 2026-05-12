@@ -1,0 +1,19 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn(){ return request.auth != null; }
+    function user(){ return get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data; }
+    function role(){ return signedIn() ? user().role : null; }
+    function tenant(){ return signedIn() ? user().tenantId : null; }
+    function superadmin(){ return signedIn() && role() == 'superadmin'; }
+    function sameTenant(t){ return signedIn() && (superadmin() || tenant() == t); }
+
+    match /usuarios/{uid} { allow read: if signedIn() && (superadmin() || request.auth.uid == uid); allow write: if superadmin(); }
+    match /tenants/{tenantId} { allow read: if sameTenant(tenantId); allow write: if superadmin(); }
+    match /{col}/{docId} {
+      allow read: if signedIn() && (superadmin() || resource.data.tenantId == tenant());
+      allow create: if signedIn() && (superadmin() || request.resource.data.tenantId == tenant());
+      allow update, delete: if signedIn() && (superadmin() || resource.data.tenantId == tenant());
+    }
+  }
+}
