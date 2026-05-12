@@ -1,1 +1,1 @@
-{"indexes":[{"collectionGroup":"finance","queryScope":"COLLECTION","fields":[{"fieldPath":"tenantId","order":"ASCENDING"},{"fieldPath":"vencimento","order":"ASCENDING"}]},{"collectionGroup":"lots","queryScope":"COLLECTION","fields":[{"fieldPath":"tenantId","order":"ASCENDING"},{"fieldPath":"produtoId","order":"ASCENDING"}]}],"fieldOverrides":[]}
+{"indexes":[{"collectionGroup":"financeiro","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"vencimento","order":"ASCENDING"}]}],"fieldOverrides":[]}

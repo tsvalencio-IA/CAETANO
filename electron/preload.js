@@ -1,1 +1,1 @@
-// Reserva para integrações locais futuras. O app é 100% client-side.
+// Preload seguro reservado para integrações futuras de impressão/etiquetas.
