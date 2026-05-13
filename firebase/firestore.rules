@@ -2,21 +2,34 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     function signedIn(){ return request.auth != null; }
-    function user(){ return get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data; }
-    function role(){ return user().role; }
-    function tenant(){ return user().tenantId; }
-    function active(){ return signedIn() && user().ativo == true; }
-    function superadmin(){ return active() && role() == 'superadmin'; }
-    function sameTenant(tid){ return active() && tenant() == tid; }
+    function userDoc(){ return get(/databases/$(database)/documents/usuarios/$(request.auth.uid)); }
+    function role(){ return signedIn() && userDoc().data.ativo == true ? userDoc().data.role : 'none'; }
+    function tenant(){ return signedIn() ? userDoc().data.tenantId : null; }
+    function superadmin(){ return role() == 'superadmin'; }
+    function sameTenant(tid){ return signedIn() && tenant() == tid; }
     match /usuarios/{uid} {
-      allow read: if superadmin() || (signedIn() && request.auth.uid == uid);
+      allow read: if superadmin() || request.auth.uid == uid;
       allow write: if superadmin();
     }
     match /tenants/{tid} {
       allow read: if superadmin() || sameTenant(tid);
       allow write: if superadmin();
       match /{col}/{doc} {
-        allow read, write: if superadmin() || sameTenant(tid);
+        allow read: if superadmin() || sameTenant(tid);
+        allow create, update: if superadmin() || (sameTenant(tid) && role() in ['admin','pdv','cozinha','estoque']);
+        allow delete: if superadmin() || (sameTenant(tid) && role() == 'admin');
+      }
+      match /clientes/{cid} {
+        allow read: if superadmin() || sameTenant(tid) || (signedIn() && userDoc().data.clienteId == cid);
+        allow write: if superadmin() || (sameTenant(tid) && role() in ['admin','pdv']);
+      }
+      match /pedidos/{pid} {
+        allow read: if superadmin() || sameTenant(tid) || (signedIn() && resource.data.clienteId == userDoc().data.clienteId);
+        allow write: if superadmin() || (sameTenant(tid) && role() in ['admin','pdv','cozinha']);
+      }
+      match /vendas/{vid} {
+        allow read: if superadmin() || sameTenant(tid) || (signedIn() && resource.data.clienteId == userDoc().data.clienteId);
+        allow write: if superadmin() || (sameTenant(tid) && role() in ['admin','pdv']);
       }
     }
   }

@@ -1,1 +1,1 @@
-{"indexes":[{"collectionGroup":"financeiro","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"vencimento","order":"ASCENDING"}]}],"fieldOverrides":[]}
+{"indexes":[{"collectionGroup":"vendas","queryScope":"COLLECTION","fields":[{"fieldPath":"clienteId","order":"ASCENDING"},{"fieldPath":"data","order":"DESCENDING"}]},{"collectionGroup":"financeiro","queryScope":"COLLECTION","fields":[{"fieldPath":"status","order":"ASCENDING"},{"fieldPath":"vencimento","order":"ASCENDING"}]}],"fieldOverrides":[]}

@@ -1,1 +1,1 @@
-// Preload seguro reservado para integrações futuras de impressão/etiquetas.
+window.addEventListener('DOMContentLoaded',()=>{});
